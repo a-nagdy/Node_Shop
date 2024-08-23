@@ -53,7 +53,7 @@ const fileFilter = (req, file, cb) => {
 };
 
 app.set("view engine", "ejs");
-app.set("views", "views"); // default is views folder, but we can change it to templates or any other name
+app.set("views", path.join(__dirname, "views"));
 
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
@@ -62,7 +62,11 @@ const authRoutes = require("./routes/auth");
 app.use(helmet());
 1;
 app.use(compression());
-app.use(morgan('combined', { stream: { write: message => console.log(message.trim()) } }));
+app.use(
+  morgan("combined", {
+    stream: { write: (message) => console.log(message.trim()) },
+  })
+);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
