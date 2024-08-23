@@ -12,7 +12,7 @@ const flash = require("connect-flash");
 const multer = require("multer");
 const helmet = require("helmet");
 const compression = require("compression");
-const morgon = require("morgan");
+const morgan = require("morgan");
 
 const errorController = require("./controllers/error");
 const User = require("./models/user");
