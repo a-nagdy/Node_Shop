@@ -59,17 +59,10 @@ const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const authRoutes = require("./routes/auth");
 
-// const accessLogStream = fs.createWriteStream(
-//   path.join(__dirname, "/logs/access.log"),
-//   {
-//     flags: "a",
-//   }
-// );
-
 app.use(helmet());
 1;
 app.use(compression());
-// app.use(morgon("combined", { stream: accessLogStream }));
+app.use(morgan('combined', { stream: { write: message => console.log(message.trim()) } }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
