@@ -30,9 +30,6 @@ const store = new MongoDBStore({
 
 const csrfProtection = csrf();
 
-const privateKey = fs.readFileSync("server.key");
-const certificate = fs.readFileSync("server.cert");
-
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "images");
@@ -62,17 +59,17 @@ const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const authRoutes = require("./routes/auth");
 
-const accessLogStream = fs.createWriteStream(
-  path.join(__dirname, "/logs/access.log"),
-  {
-    flags: "a",
-  }
-);
+// const accessLogStream = fs.createWriteStream(
+//   path.join(__dirname, "/logs/access.log"),
+//   {
+//     flags: "a",
+//   }
+// );
 
 app.use(helmet());
 1;
 app.use(compression());
-app.use(morgon("combined", { stream: accessLogStream }));
+// app.use(morgon("combined", { stream: accessLogStream }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -148,11 +145,9 @@ mongoose
 
     console.log("Connected to MongoDB");
     console.log("Listening on port: " + PORT);
-    // https
-    //   .createServer({ key: privateKey, cert: certificate }, app)
-    //   .listen(3000);
     app.listen(PORT);
   })
   .catch((err) => {
     console.log(err);
   });
+module.exports = app;
